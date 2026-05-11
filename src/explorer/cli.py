@@ -8,7 +8,7 @@ import os
 import sys
 from typing import Any, Dict, Optional, cast
 
-ARKIV_RPC_URL_DEFAULT = "https://mendoza.hoodi.arkiv.network/rpc"
+ARKIV_RPC_URL_DEFAULT = "https://braga.hoodi.arkiv.network/rpc"
 
 def _connect_client() -> Any:
     """Return an Arkiv client. Prefer ARKIV_RPC_URL if set."""

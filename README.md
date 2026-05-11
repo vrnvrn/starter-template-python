@@ -583,16 +583,16 @@ Then: `Ctrl+Shift+P` → `Python: Select Interpreter` → choose `.venv`
 
 ## Deploying to Production
 
-Once you've mastered local development, connect to the Mendoza testnet:
+Once you've mastered local development, connect to the Braga testnet:
 
-### Mendoza Testnet Connection
+### Braga Testnet Connection
 
 ```python
 from arkiv import Arkiv, NamedAccount
 from arkiv.provider import ProviderBuilder
 
-# Configure provider for Mendoza testnet
-provider = ProviderBuilder().custom("https://mendoza.hoodi.arkiv.network/rpc").build()
+# Configure provider for Braga testnet
+provider = ProviderBuilder().custom("https://braga.hoodi.arkiv.network/rpc").build()
 
 # Load your account (create one if you don't have it)
 account = NamedAccount.from_private_key("my-account", "0x...")
@@ -605,7 +605,7 @@ client = Arkiv(provider=provider, account=account)
 
 # Now use normally - same API as local development!
 entity_key, receipt = client.arkiv.create_entity(
-    payload=b"Hello from Mendoza!",
+    payload=b"Hello from Braga!",
     content_type="text/plain",
     attributes={"env": "testnet"},
     expires_in=client.arkiv.to_seconds(days=7)
@@ -614,9 +614,9 @@ entity_key, receipt = client.arkiv.create_entity(
 
 ### Key Differences: Local vs. Testnet
 
-| Aspect | Local Development | Mendoza Testnet |
-|--------|------------------|-----------------|
-| **Provider** | `ProviderBuilder().node()` | `ProviderBuilder().custom("https://mendoza.hoodi.arkiv.network/rpc")` |
+| Aspect | Local Development | Braga Testnet |
+|--------|-------------------|---------------|
+| **Provider** | `ProviderBuilder().node()` | `ProviderBuilder().custom("https://braga.hoodi.arkiv.network/rpc")` |
 | **Account Funding** | `node.fund_account()` | Request from faucet (Discord) |
 | **Data Persistence** | Lost when node stops | Permanent on testnet |
 | **Block Time** | ~1-2 seconds | ~2 seconds |
@@ -632,7 +632,7 @@ from arkiv import Arkiv, NamedAccount
 from arkiv.provider import ProviderBuilder
 
 # Configure from environment
-RPC_URL = os.getenv("ARKIV_RPC_URL", "https://mendoza.hoodi.arkiv.network/rpc")
+RPC_URL = os.getenv("ARKIV_RPC_URL", "https://braga.hoodi.arkiv.network/rpc")
 PRIVATE_KEY = os.getenv("ARKIV_PRIVATE_KEY")
 
 provider = ProviderBuilder().custom(RPC_URL).build()
@@ -642,7 +642,7 @@ client = Arkiv(provider=provider, account=account)
 
 ### Getting Testnet Funds
 
-To use Mendoza testnet, you need test tokens:
+To use Braga testnet, you need test tokens:
 
 1. **Create an account**:
    ```python
@@ -655,7 +655,7 @@ To use Mendoza testnet, you need test tokens:
 3. **Verify balance**:
    ```python
    balance = client.eth.get_balance(account.address)
-   print(f"Balance: {balance / 10**18} ETH")
+   print(f"Balance: {balance / 10**18} GLM")
    ```
 
 ---
@@ -672,7 +672,7 @@ Once you've completed the examples:
 
 1. **Experiment** - Modify examples to understand the API
 2. **Build** - Create your own application using these patterns
-3. **Deploy** - Move to Mendoza testnet when ready
+3. **Deploy** - Move to Braga testnet when ready
 4. **Share** - Join Discord and show the community what you've built
 
 ## Contributing
