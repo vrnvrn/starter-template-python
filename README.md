@@ -2,7 +2,7 @@
 
 **Get started with Arkiv in under 5 minutes!** 🚀
 
-This starter template provides everything you need to build applications with the Arkiv SDK for Python. No complex setup required—just clone, open, and run.
+This starter template provides everything you need to build applications with the Arkiv SDK for Python. No complex setup required, just clone, open, and run.
 
 ## Table of Contents
 
@@ -567,7 +567,7 @@ Then: `Ctrl+Shift+P` → `Python: Select Interpreter` → choose `.venv`
 
 **Solution:**
 - Check Docker: `docker ps`
-- Examples start nodes automatically—wait for "Node running" message
+- Examples start nodes automatically, wait for the "Node running" message
 - First run downloads Docker images (one-time delay)
 
 #### Examples Run Slowly
@@ -665,6 +665,57 @@ To use Braga testnet, you need test tokens:
 - 📖 SDK Source Code - Check `.venv/lib/python3.12/site-packages/arkiv/module_base.py` for method documentation
 - 💬 [Discord Community](https://discord.gg/arkiv) - Get help and share projects
 - 🐦 [Twitter/X](https://twitter.com/ArkivNetwork) - Latest updates and announcements
+
+## Network and Migration
+
+This template targets **Braga**, Arkiv's current public testnet. Snapshots, entities, and funded balances do not port between Arkiv testnets, so anyone running this code (and any agent helping with maintenance) should confirm the current network before assuming the configuration below is still up to date.
+
+### Current configuration
+
+| Setting | Value |
+| --- | --- |
+| Default RPC | `https://braga.hoodi.arkiv.network/rpc` |
+| Chain ID | `60138453102` |
+| Explorer | `https://explorer.braga.hoodi.arkiv.network` |
+| Faucet | `https://braga.hoodi.arkiv.network/faucet/` |
+| Native gas token | test GLM |
+| SDK package | [`arkiv`](https://github.com/Arkiv-Network/arkiv-sdk-python) (Python) |
+
+### Testnet history
+
+Arkiv has rotated its public testnet as the protocol matured:
+
+1. **Mendoza** (early testnet, ETH gas token)
+2. **Kaolin** (deprecated, scheduled to stop responding on May 15, 2026, ETH gas token)
+3. **Braga** (current, GLM gas token)
+
+Official references:
+
+- Braga overview: https://docs.arkiv.network/networks/braga/
+- Kaolin to Braga migration notes: https://docs.arkiv.network/networks/migrate-from-kaolin/
+
+### Migrating this template to a future testnet
+
+The next time Arkiv announces a new testnet, the changes below are what this repository needs. The same checklist works whether you are a human maintainer or an AI assistant. Replace `braga` with the new network name wherever it appears.
+
+1. Confirm the new network's RPC URL, chain ID, explorer, and faucet from the official Arkiv docs.
+2. Edit `src/explorer/cli.py` and update the `ARKIV_RPC_URL_DEFAULT` constant.
+3. Edit `README.md`:
+   - The "Deploying to Production" section, including the Braga Testnet Connection code block, the comparison table, and the Environment Variables Pattern code block.
+   - The "Getting Testnet Funds" subsection.
+   - The "Next Steps" item that names the testnet.
+   - This Network and Migration section.
+4. Review `src/arkiv_starter/03_clients.py` for any hardcoded RPC URL constants. This file may also reference a development-only testnet (for example `rosario.hoodi.arkiv.network`) that is separate from the public testnet rotation. Update only if the docs confirm it has moved.
+5. Refund the signing wallet on the new faucet, since balances do not port across testnets. Update `ARKIV_PRIVATE_KEY` in any deployment platform if you rotate the wallet.
+6. Run the local smoke test in the Quick Start to confirm the new RPC responds and account funding works.
+
+Final check, useful as both the first and last step of a migration:
+
+```bash
+grep -rin "braga\|mendoza\|kaolin" --include="*.py" --include="*.md" --include="*.toml"
+```
+
+Any hits outside this Network and Migration section indicate stragglers that still need to be updated.
 
 ## Next Steps
 
